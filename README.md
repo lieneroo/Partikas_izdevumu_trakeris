@@ -1,4 +1,4 @@
-# **Projekts "Finanšu trakeris"**
+# **Projekts "Pārtikas izdevumu trakeris"**
 
 
 
