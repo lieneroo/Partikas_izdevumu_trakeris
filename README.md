@@ -8,13 +8,13 @@ Objektorientēts Java projekts, MySQL
 
 1. \[] Izveidot programmas izstrādes dokumentu
 
-\[] Ievads (projekta nosaukums, īss apraksts, mērķis)
+\[x] Ievads (projekta nosaukums, īss apraksts, mērķis)
 
-\[] Problēma (kāpēc nepieciešams, kādu problēmu risina)
+\[x] Problēma (kāpēc nepieciešams, kādu problēmu risina)
 
-\[] Sistēmas prasības (Funkcionālās un nefunkcionālās)
+\[x] Sistēmas prasības (Funkcionālās un nefunkcionālās)
 
-\[] Lietošanas scenārijs (kā lietotājs lieto sistēmu)
+\[x] Lietošanas scenārijs (kā lietotājs lieto sistēmu)
 
 \[] Datu modelis (ER diagramma, tabulu apraksts)
 
@@ -30,11 +30,11 @@ Objektorientēts Java projekts, MySQL
 
 
 
-2\. Versiju kontrole (Git)
+2\.\[] Versiju kontrole (Git)
 
-\[] Uzsākt projekta versionēšanu ar Git
+\[x] Uzsākt projekta versionēšanu ar Git
 
-\[] Izveidot pirmo commit (README)
+\[x] Izveidot pirmo commit (README)
 
 \[] Izvietot projektu GitHub
 
