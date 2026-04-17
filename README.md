@@ -30,7 +30,7 @@ Objektorientēts Java projekts, MySQL
 
 
 
-2\.\[] Versiju kontrole (Git)
+2.\[] Versiju kontrole (Git)
 
 \[x] Uzsākt projekta versionēšanu ar Git
 
@@ -42,15 +42,15 @@ Objektorientēts Java projekts, MySQL
 
 
 
-3\. \[] Datu modelēšana
+3\. \[x] Datu modelēšana
 
-\[] Teorētiskais modelis
+\[x] Teorētiskais modelis
 
-\[] Loģiskais modelis
+\[x] Loģiskais modelis
 
-\[] Fiziskais modelis
+\[x] Fiziskais modelis
 
-\[] Normalizācija
+\[x] Normalizācija
 
 
 
