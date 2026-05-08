@@ -56,13 +56,13 @@ Objektorientēts Java projekts, MySQL
 
 4\. \[] MySQL datubāzes izveide
 
-\[] Izveidot datubāzi
+\[x] Izveidot datubāzi
 
-\[] Izveidot tabulas
+\[x] Izveidot tabulas
 
-\[] Definēt Primary Key un Foreign Key
+\[x] Definēt Primary Key un Foreign Key
 
-\[] Ievadīt testa datus
+\[x] Ievadīt testa datus
 
 \[] Veikt datu pārbaudi (SELECT, JOIN)
 
