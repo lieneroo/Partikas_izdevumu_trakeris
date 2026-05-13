@@ -64,7 +64,7 @@ Objektorientēts Java projekts, MySQL
 
 \[x] Ievadīt testa datus
 
-\[] Veikt datu pārbaudi (SELECT, JOIN)
+\[x] Veikt datu pārbaudi (SELECT, JOIN)
 
 
 
