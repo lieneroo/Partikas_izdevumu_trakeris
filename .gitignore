@@ -1,1 +1,13 @@
 Paraugi/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# Java build
+bin/
+
+# OS
+.DS_Store
+Thumbs.db
