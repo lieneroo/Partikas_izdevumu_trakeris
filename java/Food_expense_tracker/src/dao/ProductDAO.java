@@ -56,5 +56,23 @@ public class ProductDAO {
         return products;
 
     }
+ 
+    public void insertProduct(String brandName, String productName, int categoryId) {
 
+        String query = "INSERT INTO products (brand_name, product_name, id_categories) " +
+                       "VALUES ('" + brandName + "', '" + productName + "', " + categoryId + ")";
+
+        try {
+            Connection connection = DBConnection.getConnection();
+            Statement statement = connection.createStatement();
+
+            statement.executeUpdate(query);
+
+            System.out.println("Produkts pievienots!");
+
+        } catch (SQLException e) {
+            System.out.println("Neizdevās pievienot produktu!");
+            e.printStackTrace();
+        }
+	} 
 }
