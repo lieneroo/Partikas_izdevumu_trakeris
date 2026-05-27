@@ -31,8 +31,10 @@ CONSTRAINT products_categories
 CREATE TABLE IF NOT EXISTS purchase_item (
 purchase_item_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 quantity DECIMAL(10,2) NOT NULL,
-unit VARCHAR(20) NOT NULL,
+weight DECIMAL(10,2) NULL,
 price DECIMAL(10,2) NOT NULL,
+weight_unit VARCHAR(10) NULL,
+unit VARCHAR(20) NOT NULL,
 total_price DECIMAL(10,2) NOT NULL,
 meals_count INT NULL,
 days_count INT NULL,

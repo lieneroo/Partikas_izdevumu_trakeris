@@ -6,6 +6,8 @@ public class PurchaseItem {
     private double quantity;
     private String unit;
     private double price;
+    private Double weight;
+    private String weight_unit;
     private double total_price;
     private Integer meals_count;
     private Integer days_count;
@@ -13,7 +15,7 @@ public class PurchaseItem {
     private int id_receipts;
 
     public PurchaseItem(int purchase_item_id, double quantity, String unit,
-                        double price, double total_price,
+                        double price, Double weight, String weight_unit, double total_price,
                         Integer meals_count, Integer days_count,
                         int id_products, int id_receipts) {
 
@@ -21,6 +23,8 @@ public class PurchaseItem {
         this.quantity = quantity;
         this.unit = unit;
         this.price = price;
+        this.weight = weight;
+        this.weight_unit = weight_unit;
         this.total_price = total_price;
         this.meals_count = meals_count;
         this.days_count = days_count;
@@ -43,7 +47,14 @@ public class PurchaseItem {
     public double getPrice() {
         return price;
     }
-
+    public Double getWeight() {
+        return weight;
+    }
+    
+    public String getWeight_unit() {
+        return weight_unit;
+    }
+    
     public double getTotal_price() {
         return total_price;
     }
