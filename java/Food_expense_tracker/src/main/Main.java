@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import dao.CategoryDAO;
 import dao.ProductDAO;
 import dao.PurchaseItemDAO;
 import dao.ReceiptDAO;
+import models.Category;
 import models.Product;
 
 public class Main {
@@ -36,8 +38,59 @@ public class Main {
 	    }
 	    
 	    ArrayList<Product> products = productDAO.searchProducts(search);
+	    
 	    if (products.isEmpty()) {
 	    	System.out.println("Produkts nav atrasts!");
+	    	System.out.println("Vai pievienot jaunu produktu? (j/n)");
+
+	        String addProduct = scanner.nextLine();
+
+	        if (addProduct.equalsIgnoreCase("j")) {
+
+	            CategoryDAO categoryDAO = new CategoryDAO();
+
+	            ArrayList<Category> categories = categoryDAO.getAllCategories();
+
+	            for (Category category : categories) {
+
+	                System.out.println(category.getCategories_id()
+	                        + " | "
+	                        + category.getCategory_name());
+	            }
+
+	            System.out.println("Šeit vēl pievienosim produkta izveidi.");
+	            System.out.println("Ievadi zīmolu/ražotāju:");
+	            String brandName = scanner.nextLine();
+
+	            System.out.println("Ievadi pilnu produkta nosaukumu:");
+	            String productName = scanner.nextLine();
+
+	            int categoryId = 0;
+	            boolean categoryFound = false;
+
+	            while (!categoryFound) {
+
+	                System.out.println("Ievadi izvēlētās kategorijas ID:");
+	                categoryId = scanner.nextInt();
+	                scanner.nextLine();
+
+	                for (Category category : categories) {
+	                    if (category.getCategories_id() == categoryId) {
+	                        categoryFound = true;
+	                        break;
+	                    }
+	                }
+
+	                if (!categoryFound) {
+	                    System.out.println("Nepareizs kategorijas ID! Mēģini vēlreiz.");
+	                }
+	            }
+	            
+	            productDAO.insertProduct(brandName, productName, categoryId);
+
+	            System.out.println("Produkts pievienots! Tagad ievadi tā "
+	            		+ "nosaukumu, lai pievienotu čekam.");
+	        }
 	    	continue;
 	    }
 	    
@@ -51,6 +104,7 @@ public class Main {
 	    while (!found) {
 	    	System.out.println("Ievadi izvēlētā produkta ID:");
 	    	productId = scanner.nextInt();
+	    	scanner.nextLine();
 	    	
 	    	for (Product product : products) {
 	    		if (product.getProducts_id() == productId) {
@@ -85,10 +139,12 @@ public class Main {
 	            weight = null;
 	        }
 	    }
+	    String weight_unit = null;
+	    if(weight != null) {
+	    	System.out.println("Ievadi mērvienību (g, kg, l, u.c.):");
+	    	weight_unit = scanner.nextLine();
+	    }
 	    
-	    System.out.println("Ievadi mērvienību (g, kg, l, u.c.):");
-	    String weight_unit = scanner.nextLine();
-	   
 	    double totalPrice = quantity * price;
 
 	    System.out.println("Ievadi, cik ēdienreizēm pietiks:");
@@ -115,7 +171,6 @@ public class Main {
 	    double total = purchaseItemDAO.getReceiptTotal(receiptId);
 	    System.out.println("Čeka kopējā summa: " + total + " EUR");
 	    purchaseItemDAO.showReceiptItems(receiptId);
-	    
 	    
 	    scanner.close();
 	}

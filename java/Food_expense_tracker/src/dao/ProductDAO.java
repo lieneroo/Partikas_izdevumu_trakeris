@@ -68,8 +68,6 @@ public class ProductDAO {
 
             statement.executeUpdate(query);
 
-            System.out.println("Produkts pievienots!");
-
         } catch (SQLException e) {
             System.out.println("Neizdevās pievienot produktu!");
             e.printStackTrace();
