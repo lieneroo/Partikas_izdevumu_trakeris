@@ -30,23 +30,46 @@ public class Main {
 	    System.out.println("Ievadi produkta nosaukumu:");
 	    String search = scanner.nextLine();
 
+	    if (search.isBlank()) {
+	    	System.out.println("Nav ievadīts produkta nosaukums!");
+	    	continue;
+	    }
+	    
 	    ArrayList<Product> products = productDAO.searchProducts(search);
-
+	    if (products.isEmpty()) {
+	    	System.out.println("Produkts nav atrasts!");
+	    	continue;
+	    }
+	    
 	    for (Product product : products) {
 	        System.out.println(product.getProducts_id() + " | " +
 	            product.getBrand_name() + " - " + product.getProduct_name());
 	    }
+	    int productId = 0;
+	    boolean found = false;
+	    
+	    while (!found) {
+	    	System.out.println("Ievadi izvēlētā produkta ID:");
+	    	productId = scanner.nextInt();
+	    	
+	    	for (Product product : products) {
+	    		if (product.getProducts_id() == productId) {
+	            found = true;
+	            break;
+	        }
+	    }
 
-	    System.out.println("Ievadi izvēlētā produkta ID:");
-	    int productId = scanner.nextInt();
+	    if (!found) {
+	    	System.out.println("Nepareizs produkta ID!");
+	    	continue;
+	    }
+	   }   
+	    
+	    double quantity = readPositiveDouble(scanner,
+	            "Ievadi daudzumu kilogramos/iepakojumu skaitu:");
 
-	    System.out.println("Ievadi daudzumu kilogramos/iepakojumu skaitu:");
-	    double quantity = scanner.nextDouble();
-
-	    System.out.println("Ievadi cenu par vienu iepakojumu vai vienu vienību:");
-	    double price = scanner.nextDouble();
-
-	    scanner.nextLine();
+	    double price = readPositiveDouble(scanner, 
+	    		"Ievadi cenu par vienu iepakojumu vai vienu vienību:");
 
 	    System.out.println("Ievadi mērvienību (gab., kg, l, u.c.):");
 	    String unit = scanner.nextLine();
@@ -95,5 +118,24 @@ public class Main {
 	    
 	    
 	    scanner.close();
+	}
+	private static double readPositiveDouble(Scanner scanner, String message) {
+
+	    while (true) {
+	        System.out.println(message);
+
+	        if (scanner.hasNextDouble()) {
+	            double value = scanner.nextDouble();
+	            scanner.nextLine();
+
+	            if (value > 0) {
+	                return value;
+	            }
+	        } else {
+	            scanner.nextLine();
+	        }
+
+	        System.out.println("Kļūda! Ievadi pozitīvu skaitli.");
+	    }
 	}
 }
