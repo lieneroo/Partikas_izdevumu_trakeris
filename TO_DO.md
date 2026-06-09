@@ -1,0 +1,74 @@
+# **Projekts "Pārtikas izdevumu trakeris"**
+
+
+
+Objektorientēts Java projekts, MySQL
+
+
+
+1. \[] Izveidot programmas izstrādes dokumentu
+
+\[x] Ievads (projekta nosaukums, īss apraksts, mērķis)
+
+\[x] Problēma (kāpēc nepieciešams, kādu problēmu risina)
+
+\[x] Sistēmas prasības (Funkcionālās un nefunkcionālās)
+
+\[x] Lietošanas scenārijs (kā lietotājs lieto sistēmu)
+
+\[] Datu modelis (ER diagramma, tabulu apraksts)
+
+\[] Sistēmas arhitektūra (Java programma, MySQL)
+
+\[] Saskarnes apraksts
+
+\[] Datu apstrāde (validācija, aprēķini, loģika)
+
+\[] Testēšana (kā pārbaudīs, vai viss strādā)
+
+\[] Secinājumi, nākotnes uzlabojumi.
+
+
+
+2.\[] Versiju kontrole (Git)
+
+\[x] Uzsākt projekta versionēšanu ar Git
+
+\[x] Izveidot pirmo commit (README)
+
+\[] Izvietot projektu GitHub
+
+
+
+
+
+3\. \[x] Datu modelēšana
+
+\[x] Teorētiskais modelis
+
+\[x] Loģiskais modelis
+
+\[x] Fiziskais modelis
+
+\[x] Normalizācija
+
+
+
+4\. \[] MySQL datubāzes izveide
+
+\[x] Izveidot datubāzi
+
+\[x] Izveidot tabulas
+
+\[x] Definēt Primary Key un Foreign Key
+
+\[x] Ievadīt testa datus
+
+\[x] Veikt datu pārbaudi (SELECT, JOIN)
+
+
+
+4\. Java programma
+
+\[] Veikt klases "...." izstrādi
+

@@ -1,74 +1,80 @@
-# **Projekts "Pārtikas izdevumu trakeris"**
+\# Food Expense Tracker
 
 
 
-Objektorientēts Java projekts, MySQL
+\## Description
 
 
 
-1. \[] Izveidot programmas izstrādes dokumentu
-
-\[x] Ievads (projekta nosaukums, īss apraksts, mērķis)
-
-\[x] Problēma (kāpēc nepieciešams, kādu problēmu risina)
-
-\[x] Sistēmas prasības (Funkcionālās un nefunkcionālās)
-
-\[x] Lietošanas scenārijs (kā lietotājs lieto sistēmu)
-
-\[] Datu modelis (ER diagramma, tabulu apraksts)
-
-\[] Sistēmas arhitektūra (Java programma, MySQL)
-
-\[] Saskarnes apraksts
-
-\[] Datu apstrāde (validācija, aprēķini, loģika)
-
-\[] Testēšana (kā pārbaudīs, vai viss strādā)
-
-\[] Secinājumi, nākotnes uzlabojumi.
+Food Expense Tracker is a Java and MySQL application for tracking food expenses, purchased products, meal counts, and product consumption.
 
 
 
-2.\[] Versiju kontrole (Git)
-
-\[x] Uzsākt projekta versionēšanu ar Git
-
-\[x] Izveidot pirmo commit (README)
-
-\[] Izvietot projektu GitHub
+The goal of the project is to provide a better understanding of personal food spending and consumption habits while creating a foundation for future nutrition analysis features.
 
 
 
-
-
-3\. \[x] Datu modelēšana
-
-\[x] Teorētiskais modelis
-
-\[x] Loģiskais modelis
-
-\[x] Fiziskais modelis
-
-\[x] Normalizācija
+\## Features
 
 
 
-4\. \[] MySQL datubāzes izveide
+\- Product search
 
-\[x] Izveidot datubāzi
+\- Receipt creation
 
-\[x] Izveidot tabulas
+\- Purchase item management
 
-\[x] Definēt Primary Key un Foreign Key
+\- Product categories
 
-\[x] Ievadīt testa datus
+\- Add new products directly from the application
 
-\[x] Veikt datu pārbaudi (SELECT, JOIN)
+\- Product weight tracking
+
+\- Meal count tracking
+
+\- Days count tracking
+
+\- Receipt total calculation
+
+\- Input validation
 
 
 
-4\. Java programma
+\## Technologies
 
-\[] Veikt klases "...." izstrādi
+
+
+\- Java
+
+\- MySQL
+
+\- JDBC
+
+\- Git
+
+\- Eclipse IDE
+
+
+
+\## Planned Features
+
+
+
+\- Graphical User Interface (GUI)
+
+\- Expense statistics by category
+
+\- Cost per meal calculations
+
+\- Nutrition tracking
+
+\- Product editing and deletion
+
+
+
+\## Project Status
+
+
+
+Version 1.0 - In Development
 
