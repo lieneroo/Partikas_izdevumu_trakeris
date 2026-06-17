@@ -27,9 +27,7 @@ public class Main {
         int receiptId = receiptDAO.createReceipt(LocalDate.now());
 
         String turpinat = "j";
-
         while (turpinat.equalsIgnoreCase("j")) {
-
             System.out.println("Ievadi produkta nosaukumu:");
             String search = scanner.nextLine();
 
@@ -43,7 +41,6 @@ public class Main {
             if (products.isEmpty()) {
                 System.out.println("Produkts nav atrasts!");
                 System.out.println("Vai pievienot jaunu produktu? (j/n)");
-
                 String addProduct = scanner.nextLine();
 
                 if (addProduct.equalsIgnoreCase("j")) {
@@ -60,14 +57,12 @@ public class Main {
             }
 
             System.out.println("0 | Pievienot jaunu produktu");
-
             int productId = 0;
             boolean found = false;
             boolean addNewProduct = false;
 
             while (!found && !addNewProduct) {
                 System.out.println("Ievadi izvēlētā produkta ID vai 0, lai pievienotu jaunu produktu:");
-
                 productId = scanner.nextInt();
                 scanner.nextLine();
 
@@ -104,7 +99,6 @@ public class Main {
 
             System.out.println("Ievadi preces svaru, ja prece ir iepakojumā:");
             String weightInput = scanner.nextLine();
-
             Double weight = null;
 
             if (!weightInput.isBlank()) {
@@ -126,7 +120,6 @@ public class Main {
 
             System.out.println("Ievadi, cik ēdienreizēm pietiks:");
             String mealsInput = scanner.nextLine();
-
             Integer meals_count = null;
 
             if (!mealsInput.isBlank()) {
@@ -135,44 +128,74 @@ public class Main {
 
             System.out.println("Ievadi, cik dienām pietiks:");
             String daysInput = scanner.nextLine();
-
             Integer days_count = null;
 
             if (!daysInput.isBlank()) {
                 days_count = Integer.parseInt(daysInput);
             }
 
-            purchaseItemDAO.insertPurchaseItem(
-                    quantity,
-                    unit,
-                    price,
-                    weight,
-                    weight_unit,
-                    totalPrice,
-                    meals_count,
-                    days_count,
-                    productId,
-                    receiptId
-            );
+            purchaseItemDAO.insertPurchaseItem(quantity, unit, price, weight,
+                    weight_unit, totalPrice, meals_count, days_count,productId,
+                    receiptId);
 
             System.out.println("Vai pievienot vēl produktu? j/n");
             turpinat = scanner.nextLine();
         }
 
         double total = purchaseItemDAO.getReceiptTotal(receiptId);
-        System.out.println("Čeka kopējā summa: " + total + " EUR");
-
+        System.out.println("Čeka kopējā summa: " + String.format("%.2f", total) 
+        + " EUR");
+        
+        purchaseItemDAO.showExpensesByCategory(receiptId);
+        
         purchaseItemDAO.showReceiptItems(receiptId);
+        
+        LocalDate today = LocalDate.now();
 
+        int currentYear = today.getYear();
+        int currentMonth = today.getMonthValue();
+
+        double monthlyTotal = purchaseItemDAO.getMonthlyTotal(currentYear, 
+        		currentMonth);
+
+        System.out.println("\nMēneša kopējie izdevumi: "
+        + String.format("%.2f", monthlyTotal) + " EUR");
+
+        purchaseItemDAO.showMonthlyExpensesByCategory(currentYear, currentMonth);
+
+        String showOtherMonth = "j";
+
+        while (showOtherMonth.equalsIgnoreCase("j")) {
+
+            System.out.println("\nVai vēlies apskatīt citu mēnesi? (j/n)");
+
+            showOtherMonth = scanner.nextLine();
+
+            if (showOtherMonth.equalsIgnoreCase("j")) {
+
+                System.out.println("Ievadi gadu:");
+                int year = scanner.nextInt();
+
+                System.out.println("Ievadi mēnesi (1-12):");
+                int month = scanner.nextInt();
+                scanner.nextLine();
+
+                double selectedMonthlyTotal = purchaseItemDAO.getMonthlyTotal
+                		(year, month);
+
+                System.out.println("\nMēneša kopējie izdevumi: "
+                        + String.format("%.2f", selectedMonthlyTotal) + " EUR");
+
+                purchaseItemDAO.showMonthlyExpensesByCategory(year, month);
+            }
+        }
         scanner.close();
     }
 
-    private static void addNewProduct(
-            Scanner scanner,
-            ProductDAO productDAO,
-            CategoryDAO categoryDAO
-    ) {
-        ArrayList<Category> categories = categoryDAO.getAllCategories();
+    private static void addNewProduct(Scanner scanner, ProductDAO productDAO,
+            CategoryDAO categoryDAO) {
+        
+    	ArrayList<Category> categories = categoryDAO.getAllCategories();
 
         for (Category category : categories) {
             System.out.println(category.getCategories_id() + " | "

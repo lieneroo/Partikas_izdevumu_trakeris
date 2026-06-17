@@ -8,6 +8,8 @@
 
 \- Autocomplete while typing product names
 
+\- Cancel anytime
+
 \- Ability to correct product name before search
 
 \- Recently used products list

@@ -14,52 +14,32 @@ public class ReceiptDAO {
 
     public int createReceipt(LocalDate purchaseDate) {
 
-        String query =
-                "INSERT INTO receipts (purchase_date) VALUES (?)";
+        String query = "INSERT INTO receipts (purchase_date) VALUES (?)";
 
         try {
 
-            Connection connection =
-                    DBConnection.getConnection();
+            Connection connection = DBConnection.getConnection();
 
-            PreparedStatement statement =
-                    connection.prepareStatement(
-                            query,
-                            Statement.RETURN_GENERATED_KEYS
-                    );
+            PreparedStatement statement = connection.prepareStatement(query,
+                            Statement.RETURN_GENERATED_KEYS);
 
             statement.setDate(1, Date.valueOf(purchaseDate));
 
             statement.executeUpdate();
 
-            ResultSet generatedKeys =
-                    statement.getGeneratedKeys();
+            ResultSet generatedKeys = statement.getGeneratedKeys();
 
             if (generatedKeys.next()) {
+                int receiptId = generatedKeys.getInt(1);
 
-                int receiptId =
-                        generatedKeys.getInt(1);
-
-                System.out.println(
-                        "Čeks pievienots! ID = "
-                        + receiptId
-                );
-
+                System.out.println("Čeks pievienots! ID = " + receiptId);
                 return receiptId;
-
             }
-
+            
         } catch (SQLException e) {
-
-            System.out.println(
-                    "Neizdevās pievienot čeku!"
-            );
-
+            System.out.println("Neizdevās pievienot čeku!");
             e.printStackTrace();
-
         }
-
         return -1;
     }
-
 }

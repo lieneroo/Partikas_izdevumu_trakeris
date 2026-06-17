@@ -33,34 +33,26 @@ public class ProductDAO {
 
                 String brand = resultSet.getString("brand_name");
 
-                String productName =
-                        resultSet.getString("product_name");
+                String productName = resultSet.getString("product_name");
 
-                int categoryId =
-                        resultSet.getInt("id_categories");
+                int categoryId = resultSet.getInt("id_categories");
 
-                Product product =
-                        new Product(id, brand,
-                                productName, categoryId);
+                Product product = new Product(id, brand, productName, categoryId);
 
                 products.add(product);
 
             }
 
         } catch (SQLException e) {
-
             e.printStackTrace();
-
         }
-
         return products;
-
     }
- 
     public void insertProduct(String brandName, String productName, int categoryId) {
 
-        String query = "INSERT INTO products (brand_name, product_name, id_categories) " +
-                       "VALUES ('" + brandName + "', '" + productName + "', " + categoryId + ")";
+        String query = "INSERT INTO products(brand_name, product_name,"
+        		+ "id_categories) " + "VALUES ('" + brandName + "', '" 
+        		+ productName + "', " + categoryId + ")";
 
         try {
             Connection connection = DBConnection.getConnection();

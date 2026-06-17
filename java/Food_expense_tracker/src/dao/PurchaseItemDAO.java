@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
 
 public class PurchaseItemDAO {
 
@@ -21,10 +21,10 @@ public class PurchaseItemDAO {
 	        int productId,
 	        int receiptId) 
 	{
-	    String query =
-	            "INSERT INTO purchase_item " +
-	            "(quantity, unit, price, weight, weight_unit, total_price, meals_count, days_count, id_products, id_receipts) " +
-	            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	    String query = "INSERT INTO purchase_item " +
+	            "(quantity, unit, price, weight, weight_unit, "
+	            + "total_price, meals_count, days_count, id_products, id_receipts) " 
+	            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	    try {
 	        Connection connection = DBConnection.getConnection();
@@ -95,27 +95,23 @@ public class PurchaseItemDAO {
 
             try {
 
-                Connection connection =
-                        DBConnection.getConnection();
+                Connection connection = DBConnection.getConnection();
 
-                Statement statement =
-                        connection.createStatement();
+                PreparedStatement statement = connection.prepareStatement(query);
 
-                ResultSet resultSet =
-                        statement.executeQuery(query);
+                ResultSet resultSet = statement.executeQuery(query);
 
                 
                 while (resultSet.next()) {
 
-                    Double weight =
-                            resultSet.getObject("weight", Double.class);
+                    Double weight = resultSet.getObject("weight", Double.class);
 
-                    Integer meals =
-                            resultSet.getObject("meals_count", Integer.class);
+                    Integer meals = resultSet.getObject("meals_count", Integer.class);
 
-                    Integer days =
-                            resultSet.getObject("days_count", Integer.class);
+                    Integer days = resultSet.getObject("days_count", Integer.class);
 
+                    double totalPrice = resultSet.getDouble("total_price");
+                    
                     String output =
                             resultSet.getDate("purchase_date")
                             + " | "
@@ -128,38 +124,32 @@ public class PurchaseItemDAO {
                             + resultSet.getString("unit");
 
                     if (weight != null) {
-
-                        output +=
-                                " | iepakojuma svars: "
-                                + weight
-                                + " "
-                                + resultSet.getString("weight_unit");
+                        output += " | iepakojuma svars: " + weight
+                                + " " + resultSet.getString("weight_unit");
                     }
 
                     if (meals != null) {
-
-                        output +=
-                                " | ēdienreizes: "
-                                + meals;
+                        output += " | ēdienreizes: " + meals;
+                        double pricePerMeal = totalPrice / meals;
+                        output += " | cena/ēdienreize: " +
+                                String.format("%.2f", pricePerMeal) + " EUR";
                     }
 
                     if (days != null) {
+                        output += " | dienas: " + days;
 
-                        output +=
-                                " | dienas: "
-                                + days;
+                        double pricePerDay = totalPrice / days;
+
+                        output += " | cena/diena: "
+                                + String.format("%.2f", pricePerDay) + " EUR";
                     }
 
-                    output +=
-                            " | "
-                            + resultSet.getDouble("total_price")
-                            + " EUR";
-
+                    output += " | " + String.format("%.2f",
+                            resultSet.getDouble("total_price")) + " EUR";
                     System.out.println(output);
                 }
 
             } catch (SQLException e) {
-
                 e.printStackTrace();
 
             }
@@ -175,8 +165,7 @@ public class PurchaseItemDAO {
 
                 Connection connection = DBConnection.getConnection();
 
-                PreparedStatement statement =
-                        connection.prepareStatement(query);
+                PreparedStatement statement = connection.prepareStatement(query);
 
                 statement.setInt(1, receiptId);
 
@@ -192,5 +181,107 @@ public class PurchaseItemDAO {
 
             return 0;
         }
-        
+       
+        public void showExpensesByCategory(int receiptId) {
+
+            String query =
+                    "SELECT c.category_name, " +
+                    "SUM(pi.total_price) AS category_total " +
+                    "FROM purchase_item pi " +
+                    "JOIN products p " +
+                    "ON pi.id_products = p.products_id " +
+                    "JOIN categories c " +
+                    "ON p.id_categories = c.categories_id " +
+                    "WHERE pi.id_receipts = ? " +
+                    "GROUP BY c.category_name";
+
+            try {
+
+                Connection connection = DBConnection.getConnection();
+
+                PreparedStatement statement = connection.prepareStatement(query);
+
+                statement.setInt(1, receiptId);
+
+                ResultSet resultSet = statement.executeQuery();
+
+                System.out.println("\nIzdevumi pa kategorijām:");
+
+                while (resultSet.next()) {
+                    System.out.println(resultSet.getString("category_name")
+                            + ": " + String.format("%.2f",
+                             resultSet.getDouble("category_total")) + " EUR");
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        public void showMonthlyExpensesByCategory(int year, int month) {
+
+            String query =
+                    "SELECT c.category_name, " +
+                    "SUM(pi.total_price) AS category_total " +
+                    "FROM purchase_item pi " +
+                    "JOIN products p ON pi.id_products = p.products_id " +
+                    "JOIN categories c ON p.id_categories = c.categories_id " +
+                    "JOIN receipts r ON pi.id_receipts = r.receipts_id " +
+                    "WHERE YEAR(r.purchase_date) = ? " +
+                    "AND MONTH(r.purchase_date) = ? " +
+                    "GROUP BY c.category_name";
+
+            try {
+                Connection connection = DBConnection.getConnection();
+
+                PreparedStatement statement = connection.prepareStatement(query);
+
+                statement.setInt(1, year);
+                statement.setInt(2, month);
+
+                ResultSet resultSet = statement.executeQuery();
+
+                System.out.println("\nMēneša izdevumi pa kategorijām:");
+
+                while (resultSet.next()) {
+                    System.out.println(resultSet.getString("category_name")
+                            + ": " + String.format("%.2f",
+                            resultSet.getDouble("category_total")) + " EUR");
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public double getMonthlyTotal(int year, int month) {
+
+            String query =
+                    "SELECT SUM(pi.total_price) AS monthly_total " +
+                    "FROM purchase_item pi " +
+                    "JOIN receipts r " +
+                    "ON pi.id_receipts = r.receipts_id " +
+                    "WHERE YEAR(r.purchase_date) = ? " +
+                    "AND MONTH(r.purchase_date) = ?";
+
+            try {
+
+                Connection connection = DBConnection.getConnection();
+
+                PreparedStatement statement = connection.prepareStatement(query);
+
+                statement.setInt(1, year);
+                statement.setInt(2, month);
+
+                ResultSet resultSet = statement.executeQuery();
+
+                if (resultSet.next()) {
+                    return resultSet.getDouble("monthly_total");
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return 0;
+        } 
 }

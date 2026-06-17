@@ -36,7 +36,7 @@ Objektorientēts Java projekts, MySQL
 
 \[x] Izveidot pirmo commit (README)
 
-\[] Izvietot projektu GitHub
+\[x] Izvietot projektu GitHub
 
 
 
@@ -70,5 +70,11 @@ Objektorientēts Java projekts, MySQL
 
 4\. Java programma
 
-\[] Veikt klases "...." izstrādi
+\[x] Izstrādāt līdz GUI
+
+
+
+5\. GUI izstrāde
+
+\[] Izstrādāt GUI
 
