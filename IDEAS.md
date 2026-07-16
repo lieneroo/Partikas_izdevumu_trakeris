@@ -48,6 +48,8 @@
 
 
 
+\- Open Food Facts API integration
+
 \- Mobile application
 
 \- Barcode scanning
